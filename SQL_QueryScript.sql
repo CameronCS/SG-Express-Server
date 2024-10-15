@@ -8,7 +8,7 @@ create table users(
     username	varchar(50) not null unique,
     password	varchar(1000) not null,
     image_path	varchar(50) not null,
-    is_admin	bool not null,
+    is_admin	boolean not null,
     contact_no	varchar(10) not null
 );
 

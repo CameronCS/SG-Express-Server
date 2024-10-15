@@ -1,8 +1,8 @@
 INSERT INTO users (id, first_name, last_name, username, password, image_path, is_admin, contact_no) VALUES
-(1, 'Karen', 'Botha', 'kabotha', '$2b$10$HuSIT.SFqUT4bCnhnWs1QuKQmBroNJNnNRkEJ6.oRWKovJfx8VOTG', '/uploads/Users/1727890668820.jpg', 0, '0833031908'),
-(2, 'Ryan', 'Botha', 'rybotha', '$2b$10$IjziK445uS3fViA1ls/OYOErnqWY/AmVHj9Ef4E/LcoI2qmuCwpnm', '/uploads/Users/1727890672762.jpg', 0, '0827274365'),
-(3, 'Charlie', 'Steyn', 'chsteyn', '$2b$10$0AzhCGY/jHc1KDEO5kFHyO6ovR0qTDGOwC.NfacV.YQF1R/MRJt5K', '/uploads/Admins/1727890676339.jpg', 1, '0637888532'),
-(4, 'Jim', 'Carrey', 'jicarrey', '$2b$10$BDbx9UxCOs3p3GMIYucpN.3nueKxX9WnDDCIJFnqzqiF9JiFQhhMa', '/uploads/Admins/1727890680880.jpg', 1, '0637888532');
+(1, 'Karen', 'Botha', 'kabotha', '$2b$10$HuSIT.SFqUT4bCnhnWs1QuKQmBroNJNnNRkEJ6.oRWKovJfx8VOTG', '/uploads/Users/1727890668820.jpg', false, '0833031908'),
+(2, 'Ryan', 'Botha', 'rybotha', '$2b$10$IjziK445uS3fViA1ls/OYOErnqWY/AmVHj9Ef4E/LcoI2qmuCwpnm', '/uploads/Users/1727890672762.jpg', false, '0827274365'),
+(3, 'Charlie', 'Steyn', 'chsteyn', '$2b$10$0AzhCGY/jHc1KDEO5kFHyO6ovR0qTDGOwC.NfacV.YQF1R/MRJt5K', '/uploads/Admins/1727890676339.jpg', true, '0637888532'),
+(4, 'Jim', 'Carrey', 'jicarrey', '$2b$10$BDbx9UxCOs3p3GMIYucpN.3nueKxX9WnDDCIJFnqzqiF9JiFQhhMa', '/uploads/Admins/1727890680880.jpg', true, '0637888532');
 
 INSERT INTO child (id, first_name, last_name, class_name, image_path, notes) VALUES
 (1, 'Consantine', 'Botha', 'Dinosaur Class', '/uploads/child/1727890688718.jpg', 'Allergic To Nuts'),
