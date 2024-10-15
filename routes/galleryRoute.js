@@ -95,6 +95,8 @@ router.post('/get', (req, res) => {
 });
 
 router.get('/get-names', (req, res) => {
+    const { year } = req.query;  // Extract year from query params
+
     const query = `
         SELECT 
             gc.event_name, 
@@ -103,11 +105,13 @@ router.get('/get-names', (req, res) => {
             gallery_collection gc
         LEFT JOIN 
             gallery_images gi ON gc.id = gi.collection_id
+        WHERE 
+            gc.year = ?
         GROUP BY 
             gc.id, gc.event_name
     `;
 
-    pool.query(query, (err, results) => {
+    pool.query(query, [year], (err, results) => {  // Pass year as a parameter
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Database query error' });
@@ -117,9 +121,9 @@ router.get('/get-names', (req, res) => {
         const imagePaths = results.map(row => row.first_image_path);
 
         res.status(200).json({ 
-            "message": "all events selected", 
-            "events": names, 
-            "image_paths": imagePaths 
+            message: "All events selected", 
+            events: names, 
+            image_paths: imagePaths 
         });
     });
 });
