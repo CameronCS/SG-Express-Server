@@ -127,11 +127,20 @@ router.get('/get-names', (req, res) => {
 router.get('/get-years', (req, res) => {
     pool.query('SELECT DISTINCT year FROM gallery_collection', (error, results) => {
         if (error) {
-            return res.status(500).json({ error: 'Database query failed' });
+            return res.status(500).json({ message: 'Database query failed' });
         }
-        res.json({"results": results});
+
+        // Map over results to extract years as strings
+        const years = results.map(row => row.year.toString());
+
+        // Send response with years as strings
+        res.json({
+            results: years,
+            message: 'Success'
+        });
     });
 });
+
 
 
 
