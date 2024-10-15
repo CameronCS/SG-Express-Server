@@ -127,13 +127,9 @@ router.get('/get-names', (req, res) => {
 router.get('/get-years', (req, res) => {
     pool.query('SELECT DISTINCT year FROM gallery_collection', (error, results) => {
         if (error) {
-            return res.status(500).json({ message: 'Database query failed' });
+            return res.status(500).json({ error: 'Database query failed' });
         }
-        let lst = [];
-        results.map(_res => {
-            lst.push(`${_res}`)
-        })
-        res.json(lst);
+        res.json({"results": results});
     });
 });
 
