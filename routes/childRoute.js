@@ -251,7 +251,7 @@ router.get('/get-all', (req, res) => {
     // Step 1: Check if Admin Exists
     const checkAdminQuery = `
         SELECT id, is_admin FROM users
-        WHERE username = ? AND is_admin = 1
+        WHERE username = ? AND is_admin = true
     `;
 
     pool.query(checkAdminQuery, [admin_username], (err, adminResults) => {
