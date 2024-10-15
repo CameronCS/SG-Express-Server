@@ -8,7 +8,7 @@ app.use(bodyParser.json()); // to parse JSON-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // to parse URL-encoded bodies
 
 
-const ADDR = process.env.IP_ADDR;
+const ADDR = process.env.IP_ADDR_CAM;
 // const ADDR = process.env.IP_ADDR_CAMP;
 const PORT = 3000;
 
@@ -105,7 +105,7 @@ app.listen(PORT, ADDR, () => {
     console.log(`Add Gallery Image        -> http://${ADDR}:${PORT}/gallery/add`);
     console.log(`-----------------------------------------------------GET-------------------------------------------------------`);
     console.log(`Get Gallery Images       -> http://${ADDR}:${PORT}/gallery/get?year=qry`);
-    console.log(`Get Gallery Images       -> http://${ADDR}:${PORT}/gallery/get`);
+    console.log(`Get Gallery Images       -> http://${ADDR}:${PORT}/gallery/get-years`);
     console.log(`===============================================Resource Routes=================================================`);
     console.log(`-----------------------------------------------------POST------------------------------------------------------`);
     console.log(`Add Resources            -> http://${ADDR}:${PORT}/resources/add`);
