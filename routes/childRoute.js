@@ -251,7 +251,7 @@ router.get('/get-all', (req, res) => {
     // Step 1: Check if Admin Exists
     const checkAdminQuery = `
         SELECT id, is_admin FROM users
-        WHERE username = ? AND is_admin = true
+        WHERE username = ? AND is_admin = 1
     `;
 
     pool.query(checkAdminQuery, [admin_username], (err, adminResults) => {
@@ -261,8 +261,11 @@ router.get('/get-all', (req, res) => {
         }
 
         if (adminResults.length === 0) {
+            console.log(`Access denied: User ${admin_username} is not an admin.`);
             return res.status(403).json({ message: 'Access denied. User is not an admin.' });
         }
+
+        console.log(`Admin check passed for user ${admin_username}`);
 
         // Step 2: Retrieve All Children
         const getAllChildrenQuery = `
