@@ -40,7 +40,7 @@ router.get('/get', (req, res) => {
             return res.status(500).json({ error: 'Database error' });
         }
 
-        res.status(200).json(results);
+        res.status(200).json({results: results});
     });
 });
 
