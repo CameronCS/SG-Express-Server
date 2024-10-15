@@ -19,7 +19,7 @@ router.post('/add', upload.single('image'), (req, res) => {
     pool.query(query, values, (err, result) => {
         if (err) {
             console.error('Error inserting newsletter:', err);
-            return res.status(500).json({ error: 'Database error' });
+            return res.status(500).json({ message: 'Database error' });
         }
         res.status(201).json({ message: 'Newsletter added successfully', newsletterId: result.insertId });
     });
@@ -33,10 +33,10 @@ router.get('/get', (req, res) => {
     pool.query(query, (err, results) => {
         if (err) {
             console.error('Error fetching newsletters:', err);
-            return res.status(500).json({ error: 'Database error' });
+            return res.status(500).json({ message: 'Database error' });
         }
 
-        res.status(200).json(results);
+        res.status(200).json({results: results});
     });
 });
 
