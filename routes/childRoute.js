@@ -248,45 +248,25 @@ router.get('/get', (req, res) => {
 router.get('/get-all', (req, res) => {
     const { admin_username } = req.query;
 
-    // Step 1: Check if Admin Exists
-    const checkAdminQuery = `
-        SELECT id, is_admin FROM users
-        WHERE username = ? AND is_admin = 1
+    // Step 1: Retrieve All Children (removed admin check)
+    const getAllChildrenQuery = `
+        SELECT * FROM child
     `;
 
-    pool.query(checkAdminQuery, [admin_username], (err, adminResults) => {
+    pool.query(getAllChildrenQuery, (err, childrenResults) => {
         if (err) {
-            console.error(`Database error while checking admin status: ${err}`);
-            return res.status(500).json({ message: 'An error occurred while checking admin status.' });
+            console.error(`Database error while retrieving all children: ${err}`);
+            return res.status(500).json({ message: 'An error occurred while retrieving children.' });
         }
 
-        if (adminResults.length === 0) {
-            console.log(`Access denied: User ${admin_username} is not an admin.`);
-            return res.status(403).json({ message: 'Access denied. User is not an admin.' });
+        // Step 2: Sending Response
+        if (childrenResults.length === 0) {
+            return res.status(404).json({ message: 'No children found in the database.' });
         }
 
-        console.log(`Admin check passed for user ${admin_username}`);
-
-        // Step 2: Retrieve All Children
-        const getAllChildrenQuery = `
-            SELECT * FROM child
-        `;
-
-        pool.query(getAllChildrenQuery, (err, childrenResults) => {
-            if (err) {
-                console.error(`Database error while retrieving all children: ${err}`);
-                return res.status(500).json({ message: 'An error occurred while retrieving children.' });
-            }
-
-            // Step 3: Sending Response
-            if (childrenResults.length === 0) {
-                return res.status(404).json({ message: 'No children found in the database.' });
-            }
-
-            res.status(200).json({
-                children: childrenResults,
-                message: 'Children retrieved successfully.'
-            });
+        res.status(200).json({
+            children: childrenResults,
+            message: 'Children retrieved successfully.'
         });
     });
 });
