@@ -21,7 +21,7 @@ router.post('/add', upload.single('image'), (req, res) => {
             console.error('Error inserting newsletter:', err);
             return res.status(500).json({ message: 'Database error' });
         }
-        res.status(201).json({ message: 'Newsletter added successfully', newsletterId: result.insertId });
+        res.status(201).json({ message: 'Newsletter added successfully' });
     });
 });
 //#endregion POST
