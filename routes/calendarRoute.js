@@ -10,7 +10,7 @@ router.post('/add', (req, res) => {
     
     // Check if all required fields are provided
     if (!title || !event_date) {
-        return res.status(400).json({ error: 'Title and event date are required' });
+        return res.status(400).json({ message: 'Title and event date are required' });
     }
     
     const query = 'INSERT INTO calendar (title, description, event_date) VALUES (?, ?, ?)';
@@ -20,7 +20,7 @@ router.post('/add', (req, res) => {
     pool.query(query, values, (err, result) => {
         if (err) {
             console.error('Error inserting event:', err);
-            return res.status(500).json({ error: 'Database error' });
+            return res.status(500).json({ message: 'Database error' });
         }
         
         res.status(201).json({ message: 'Event added successfully', eventId: result.insertId });
