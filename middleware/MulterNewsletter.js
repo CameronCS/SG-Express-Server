@@ -12,7 +12,7 @@ const createFolderIfNotExists = (folderPath) => {
 // Configure multer storage dynamically based on is_admin field from req.body
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        const folderPath = path.join(__dirname, '..', 'uploads', 'Newsletter');
+        const folderPath = path.join(__dirname, '..', 'uploads', 'newsletters');
         createFolderIfNotExists(folderPath); // Ensure the folder exists
 
         cb(null, folderPath);
