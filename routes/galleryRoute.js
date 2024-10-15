@@ -124,6 +124,16 @@ router.get('/get-names', (req, res) => {
     });
 });
 
+router.get('/get-years', (req, res) => {
+    pool.query('SELECT DISTINCT year FROM gallery_collection', (error, results) => {
+        if (error) {
+            return res.status(500).json({ error: 'Database query failed' });
+        }
+        res.json(results);
+    });
+});
+
+
 
 //#endregion
 
