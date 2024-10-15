@@ -8,6 +8,8 @@ const router = express.Router()
 router.post('/add', (req, res) => {
     const { title, description, event_date } = req.body;
     
+    console.log('Title ', title, ' description ', description, ' evnet_data ', event_date)
+
     // Check if all required fields are provided
     if (!title || !event_date) {
         return res.status(400).json({ message: 'Title and event date are required' });
