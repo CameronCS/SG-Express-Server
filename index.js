@@ -1,14 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+require('dotenv').config()
 
 const app = express();
 app.use(bodyParser.json()); // to parse JSON-encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // to parse URL-encoded bodies
 
 
-const ADDR = '192.168.0.187';
-// const ADDR = '10.200.230.177';
+const ADDR = process.env.IP_ADDR;
+// const ADDR = process.env.IP_ADDR_CAMP;
 const PORT = 3000;
 
 // Define the path to the static files directory
