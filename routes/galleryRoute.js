@@ -129,7 +129,7 @@ router.get('/get-years', (req, res) => {
         if (error) {
             return res.status(500).json({ message: 'Database query failed' });
         }
-        res.json({results :results});
+        res.json(results);
     });
 });
 

@@ -105,7 +105,7 @@ app.listen(PORT, ADDR, () => {
     console.log(`Add Gallery Image        -> http://${ADDR}:${PORT}/gallery/add`);
     console.log(`-----------------------------------------------------GET-------------------------------------------------------`);
     console.log(`Get Gallery Images       -> http://${ADDR}:${PORT}/gallery/get?year=qry`);
-    console.log(`Get Gallery Images       -> http://${ADDR}:${PORT}/gallery/get-years`);
+    console.log(`Get Gallery Images       -> http://${ADDR}:${PORT}/gallery/get`);
     console.log(`===============================================Resource Routes=================================================`);
     console.log(`-----------------------------------------------------POST------------------------------------------------------`);
     console.log(`Add Resources            -> http://${ADDR}:${PORT}/resources/add`);
