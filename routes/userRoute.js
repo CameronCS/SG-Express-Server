@@ -392,6 +392,42 @@ router.put('/reset-password', (req, res) => {
         }
     });
 });
+
+router.put('/forgot-password', (req, res) => {
+    const { username, password } = req.body;
+    let query = `
+        SELECT id FROM users
+        WHERE username = ?
+    `
+    pool.query(query, [username], (err, result) => {
+        if (err) {
+            return res.status(500).json({ message: err })
+        }
+        
+        if (result.length === 0) {
+            return res.status(404).json({ message: "Username not found" })
+        }
+
+        let _id = result[0].id;
+        bcrypt.hash(password, 322)
+        .then(hash => {
+            const reset_qry = `
+                UPDATE users SET password = ? where id = _id
+            `
+            pool.query(reset_qry, [_id], (err, _) => {
+                if (err) {
+                    return res.status(500).json({ message: "Error Resetting the passsword" })
+                }
+                res.status(205).json({ message: "Password Reset Successfully" })
+            })
+        })
+        .catch(err => {
+            if (err) {
+                res.status(500).json({ message: "Error Resetting the passsword" })
+            }
+        })
+    })
+});
 //#endregion PUT
 
 //#region Delete
