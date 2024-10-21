@@ -395,40 +395,36 @@ router.put('/reset-password', (req, res) => {
 
 router.put('/forgot-password', (req, res) => {
     const { username, password } = req.body;
-    let query = `
-        SELECT id FROM users
-        WHERE username = ?
-    `
+
+    // Check if username exists
+    const query = 'SELECT id FROM users WHERE username = ?';
     pool.query(query, [username], (err, result) => {
         if (err) {
-            return res.status(500).json({ message: err })
-        }
-        
-        if (result.length === 0) {
-            return res.status(404).json({ message: "Username not found" })
+            return res.status(500).json({ message: 'Database error: ' + err });
         }
 
-        let _id = result[0].id;
-        bcrypt.hash(password, 322)
-        .then(hash => {
-            const reset_qry = `
-                UPDATE users SET password = ? where id = _id
-            `
-            pool.query(reset_qry, [_id], (err, _) => {
-                if (err) {
-                    return res.status(500).json({ message: "Error Resetting the passsword" })
-                }
-                res.status(205).json({ message: "Password Reset Successfully" })
+        if (result.length === 0) {
+            return res.status(404).json({ message: 'Username not found' });
+        }
+
+        const userId = result[0].id;
+
+        // Hash the new password
+        bcrypt.hash(password, 10) // Use a cost factor of 10 (adjust as needed)
+            .then(hash => {
+                const updateQuery = 'UPDATE users SET password = ? WHERE id = ?';
+                pool.query(updateQuery, [hash, userId], (err, _) => {
+                    if (err) {
+                        return res.status(500).json({ message: 'Error resetting the password' });
+                    }
+                    res.status(200).json({ message: 'Password reset successfully' });
+                });
             })
-        })
-        .catch(err => {
-            if (err) {
-                res.status(500).json({ message: "Error Resetting the passsword" })
-            }
-        })
-    })
+            .catch(err => {
+                res.status(500).json({ message: 'Error hashing the password' });
+            });
+    });
 });
-//#endregion PUT
 
 //#region Delete
 router.delete('/delete', (req, res) => {
