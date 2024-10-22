@@ -91,7 +91,7 @@ router.get('/get', (req, res) => {
         // If the receiver exists, retrieve all emails sent to them
         const getEmailsQuery = `
             SELECT * FROM emails 
-            WHERE receiver_username = ?
+            WHERE receiver_username = ? Order By DESC
         `;
 
         pool.query(getEmailsQuery, [receiver_username], (err, emails) => {

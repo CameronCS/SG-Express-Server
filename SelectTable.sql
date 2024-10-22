@@ -3,7 +3,6 @@ select * from users;
 select * from child;
 
 select * from child_parent;
-
 select * from emails;
 
 select * from calendar;

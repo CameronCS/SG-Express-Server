@@ -324,6 +324,11 @@ router.get('/search-specific', (req, res) => {
         });
     });
 });
+
+router.get('/request-forgot', (req, res) => {
+    
+}) 
+
 //#endregion GET
 
 //#region PUT
@@ -392,6 +397,7 @@ router.put('/reset-password', (req, res) => {
         }
     });
 });
+
 
 router.put('/forgot-password', (req, res) => {
     const { username, password } = req.body;
