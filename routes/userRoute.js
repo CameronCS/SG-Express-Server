@@ -4,6 +4,7 @@ const express = require('express')
 const bcrypt = require('bcrypt')
 const fs   = require('fs')
 const path = require('path')
+const nodemailer = require("nodemailer")
 // Local Requires
 const upload = require('../middleware/MulterUsers')
 const pool = require('../services/DB')
@@ -13,6 +14,14 @@ const pool = require('../services/DB')
 const router = express.Router()
 const saltRounds = 10
 //#endregion
+
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'camcstocks@gmail.com',
+        pass: 'ssmv oukd pilg ssth'
+    }
+})
 
 // Default route
 router.get('/', (req, res) => {
@@ -326,8 +335,26 @@ router.get('/search-specific', (req, res) => {
 });
 
 router.get('/request-forgot', (req, res) => {
-    
-}) 
+    const { username, user_email } = req.params;
+    const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0];
+    let opt = "";
+    for (let i = 0; i < 6; i++) {
+        const rand = Math.floor(Math.random() * nums.length);
+        otp += `${nums[rand]}`;
+    }
+
+    transporter.sendMail({
+        from: 'camcstocks@gmail.com',
+        to: user_email,
+        subject: 'Forogt Password',
+        text: `Hello ${username}\n\nHere is your OTP: ${otp}\nRemember never to share your otp with anyone!`
+    })
+
+    res.status(200).json({
+        message: 'OTP Send',
+        opt: opt
+    })
+})
 
 //#endregion GET
 
